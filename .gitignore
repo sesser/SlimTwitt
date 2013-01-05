@@ -1,0 +1,6 @@
+vendor/*
+app/logs/*
+app/cache/templates/*
+
+!app/logs/empty
+!app/cache/templates/empty

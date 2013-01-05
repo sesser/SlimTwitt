@@ -1,0 +1,20 @@
+{
+	"name": "sesser/slimtwitt",
+	"description": "A Slimframework skeleton using Twitter Bootstrap",
+	"keywords": [ "slim", "microframework", "bootstrap", "skeleton" ],
+	"license": "MIT",
+	"homepage": "https://github.com/sesser/slimtwitt",
+	"authors": [
+		{
+			"name": "Randy Sesser",
+			"email": "sesser@gmail.com",
+			"homepage": "http://randys.org"
+		}
+	],
+	"require": {
+		"php": ">=5.4.0",
+		"slim/slim": "2.*",
+		"slim/extras": "2.*",
+		"twig/twig": "1.*"
+	}
+}
