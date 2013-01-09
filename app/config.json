@@ -1,0 +1,27 @@
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+{
+	"app": {
+		"routes": {
+			"/": {
+				"name": "home",
+				"callback": [ "Pages", "home" ]
+			},
+			"/about": {
+				"name": "about",
+				"callback": [ "Pages", "about" ]
+			},
+			"/contact(/:status)": {
+				"method": ["POST", "GET"],
+				"name": "contact",
+				"callback": [ "Pages", "contact" ],
+				"conditions": {
+					"status": "(success|error)"
+				}
+			}
+		}
+	}
+}

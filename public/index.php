@@ -7,21 +7,15 @@
  */
 
 //-- Define some constants
-define('SS_ROOT', dirname(__DIR__));
-define('SS_APP_PATH', SS_ROOT . '/app');
-define('SS_PUB_PATH', SS_ROOT . '/public');
+define('ST_ROOT', dirname(__DIR__));
+define('ST_APP_PATH', ST_ROOT . '/app');
+define('ST_PUB_PATH', ST_ROOT . '/public');
 
-//-- First stop, include the autoload
-require SS_ROOT . '/vendor/autoload.php';
+require ST_APP_PATH . '/bootstrap.php';
 
-//-- Next, bootstrap it
-require SS_APP_PATH . '/bootstrap.php';
 
-//-- Include your routes here...
-$app = \Slim\Slim::getInstance();
-$app->get('/', function() use($app) {
-	$app->render('index.twig');
-});
+if (!isset($app))
+	$app = \Slim\Slim::getInstance();
 
 //-- RUN!
 $app->run();

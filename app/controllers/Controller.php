@@ -63,6 +63,10 @@ class Controller
 	 **/
 	protected $autoRender = TRUE;
 
+	/**
+	 * Initializes all the instance vars of the Controller
+	 * @param \Slim\Slim $app An instance of the Slim application
+	 */
 	public function __construct(\Slim\Slim $app = NULL)
 	{
 		if ($app === NULL)
@@ -73,23 +77,61 @@ class Controller
 		$this->response = $app->response();
 	}
 
+	/**
+	 * Magic method to call a controllers action and pass the route parameters.
+	 * Note that your action methods in your controllers need to begin with an
+	 * underscore (e.g. protected function _index() )
+	 * 
+	 * @param string $method The action method to call
+	 * @param array $args Arguments from the route passed to the action method (e.g. /foo/:bar would pass $bar to $method)
+	 * @author randy sesser <sesser@gmail.com>
+	 */
 	public function __call($method, $args)
 	{
 		$template = sprintf('%s/%s', strtolower(get_called_class()), strtolower($method));
 		if (is_callable([$this, '_' . $method])) {
 			$this->before();
-			call_user_func_array([$this, '_'.$method], $args);
-			$this->after();
+			call_user_func_array([$this, '_'.$method], $args);			
 			if ($this->autoRender)
 				$this->render($template, $this->view->getData());
+			$this->after();
 		} else {
 			$this->app->notFound();
 		}
 	}
 
-	protected function before() { }
-
-	protected function after() { }
+	/**
+	 * Called before the action logic is called. Override in your controllers
+	 * @return void
+	 * @access protected
+	 * @author randy sesser <sesser@gmail.com>
+	 */
+	protected function before()
+	{
+		
+	}
+	
+	/**
+	 * Called before the view is rendered. Override in your controllers
+	 * @return void
+	 * @access protected
+	 * @author randy sesser <sesser@gmail.com>
+	 */
+	protected function beforeRender()
+	{
+		
+	}
+	
+	/**
+	 * Called after the action logic and after rendering the view. Override in your controllers
+	 * @return void 
+	 * @access protected
+	 * @author randy sesser <sesser@gmail.com>
+	 */
+	protected function after()
+	{
+		
+	}
 
 	/**
 	 * Calls the render method in the Slim app instance. Twig
@@ -103,6 +145,7 @@ class Controller
 	 **/
 	protected function render($template, array $data = [], $code = NULL)
 	{
+		$this->beforeRender();
 		if (!preg_match('/\.twig$/', $template))
 			$template .= '.twig';
 		$this->app->render($template, $data, $code);

@@ -1,6 +1,7 @@
 vendor/*
-app/logs/*
-app/cache/templates/*
+tmp/*
 
-!app/logs/empty
-!app/cache/templates/empty
+
+!tmp/logs/empty
+!tmp/cache/templates/empty
+/nbproject/private/
